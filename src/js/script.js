@@ -83,7 +83,8 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
-     /* console.log('thisProduct.accordionTrigger:', thisProduct.accordionTrigger, 'thisProduct.form:', thisProduct.form, 'thisProduct.formInputs:', thisProduct.formInputs, 'thisProduct.cartButton:', thisProduct.cartButton, 'thisProduct.priceElem:', thisProduct.priceElem)
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      /* console.log('thisProduct.accordionTrigger:', thisProduct.accordionTrigger, 'thisProduct.form:', thisProduct.form, 'thisProduct.formInputs:', thisProduct.formInputs, 'thisProduct.cartButton:', thisProduct.cartButton, 'thisProduct.priceElem:', thisProduct.priceElem)
     */
     }
     initAccordion() {
@@ -130,23 +131,38 @@
     processOrder() {
       const thisProduct = this;  
       const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('seor:', formData);
       /* save default price from data.price */
-      var price = thisProduct.data.price
+      var price = thisProduct.data.price;
       /* START LOOP: for each param */
       for(let paramId in thisProduct.data.params) {
         /* START LOOP: for each option */
         const param = thisProduct.data.params[paramId];
-          for(let optionId in param.options) {
-            const option = param.options[optionId];
-            const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+        for(let optionId in param.options) {
+          const option = param.options[optionId];
+          const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
           /* if it's not default raise the price */
-          if(optionSelected && !option.default){
+          if(optionSelected && !option.default) {
             price = price + option.price;
-           }
+          }
           /* if it's default reduce the price */
           else if (!optionSelected && option.default) {
-            price = price - option.price
-           }
+            price = price - option.price;
+          }
+          let selector = '.' + paramId + '-' + optionId;
+          let imagesSelect = thisProduct.imageWrapper.querySelectorAll(selector);
+          // console.log('selektor:', selector);
+          if(optionSelected) {
+            for(let image of imagesSelect) {
+              image.classList.add('active');
+            }
+          }
+          /* if it's default reduce the price */
+          else {
+            for (let image of imagesSelect) {
+              image.classList.remove('active');
+            }
+          } 
         /* END LOOP: for each option */
         }
       /* END LOOP: for each param */
