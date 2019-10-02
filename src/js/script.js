@@ -58,7 +58,10 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
+      thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
       console.log('new product:', thisProduct);
     }
     renderInMenu() {
@@ -69,16 +72,24 @@
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
       /* find wrapper */
       const menuContainer = document.querySelector(select.containerOf.menu);
-      console.log('menuContainer :', menuContainer);
       /* add element to menu */
       menuContainer.appendChild(thisProduct.element);
     }
-    initAccordion() {
+    getElements() {
       const thisProduct = this;
-      /* find the clickable trigger (the element that should react to clicking) */
-      const clickableElement = document.querySelector(select.menuProduct.clickable); 
+    
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+     /* console.log('thisProduct.accordionTrigger:', thisProduct.accordionTrigger, 'thisProduct.form:', thisProduct.form, 'thisProduct.formInputs:', thisProduct.formInputs, 'thisProduct.cartButton:', thisProduct.cartButton, 'thisProduct.priceElem:', thisProduct.priceElem)
+    */
+    }
+    initAccordion() {
+      const thisProduct = this;      
       /* START: click event listener to trigger */
-      thisProduct.element.addEventListener('click', function() {
+      thisProduct.accordionTrigger.addEventListener('click', function() {
         /* prevent default action for event */
         event.preventDefault();
         /* toggle active class on element of thisProduct */
@@ -97,6 +108,51 @@
         }
         /* END: click event listener to trigger */
       });
+    }
+    initOrderForm() {
+      const thisProduct = this;   
+      thisProduct.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+      
+      for(let input of thisProduct.formInputs) {
+        input.addEventListener('change', function() {
+          thisProduct.processOrder();
+        });
+      }
+      
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+    } 
+    processOrder() {
+      const thisProduct = this;  
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      /* save default price from data.price */
+      var price = thisProduct.data.price
+      /* START LOOP: for each param */
+      for(let paramId in thisProduct.data.params) {
+        /* START LOOP: for each option */
+        const param = thisProduct.data.params[paramId];
+          for(let optionId in param.options) {
+            const option = param.options[optionId];
+            const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+          /* if it's not default raise the price */
+          if(optionSelected && !option.default){
+            price = price + option.price;
+           }
+          /* if it's default reduce the price */
+          else if (!optionSelected && option.default) {
+            price = price - option.price
+           }
+        /* END LOOP: for each option */
+        }
+      /* END LOOP: for each param */
+      }
+      /* save calculated price to priceElem*/
+      thisProduct.priceElem.innerHTML = price;
     }
   }
   const app = {
