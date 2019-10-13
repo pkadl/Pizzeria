@@ -436,12 +436,12 @@
     getData() {
       const thisCartProduct = this;
       return [
-      thisCartProduct.id,
-      thisCartProduct.name,
-      thisCartProduct.price,
-      thisCartProduct.priceSingle,
-      thisCartProduct.amount,
-      thisCartProduct.params,
+        thisCartProduct.id,
+        thisCartProduct.name,
+        thisCartProduct.price,
+        thisCartProduct.priceSingle,
+        thisCartProduct.amount,
+        thisCartProduct.params,
       ]
     }
   }
