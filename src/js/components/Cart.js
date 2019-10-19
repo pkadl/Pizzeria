@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import {settings, select, classNames, templates} from '../settings.js';
 import CartProduct from './CartProduct.js';
-import utils from '../utils.js';
+import {utils} from '../utils.js';
 
 class Cart {
   constructor(element) {
@@ -24,7 +24,6 @@ class Cart {
     thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
     thisCart.dom.phone = element.querySelector(select.cart.phone);
     thisCart.dom.address = element.querySelector(select.cart.address);
-    console.log(thisCart.dom.phone, thisCart.dom.address);
   }
   initActions() {
     const thisCart = this;

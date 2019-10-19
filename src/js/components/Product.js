@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import utils from '../utils.js';
+import {utils} from '../utils.js';
 import {select, templates} from '../settings.js';
 import AmountWidget from './AmountWidget.js';
 
@@ -14,7 +14,6 @@ class Product{
     thisProduct.initOrderForm();
     thisProduct.initAmountWidget();
     thisProduct.processOrder();
-    console.log('new product:', thisProduct);
   }
   renderInMenu() {
     const thisProduct = this;
