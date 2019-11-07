@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import {select, settings} from '../settings.js';
-import {utils} from '../utils.js';
+import utils from '../utils.js';
 import BaseWidget from './BaseWidget.js';
 
 class DatePicker extends BaseWidget {
@@ -13,11 +13,13 @@ class DatePicker extends BaseWidget {
   initPlugin() {
     const thisWidget = this;
     thisWidget.minDate = new Date(thisWidget.value);
-    thisWidget.maxDate = utils.addDays(new Date(thisWidget.value), settings.datePicker.maxDaysInFuture);
+    thisWidget.maxDate = utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture);
     // eslint-disable-next-line no-undef
     flatpickr(thisWidget.dom.input, {
       // eslint-disable-next-line quotes
-      dateFormat: "d.m.Y",
+      altInput: true,
+      altFormat: 'F j, Y',
+      dateFormat: 'Y-m-d',
       defaultDate: thisWidget.minDate,
       minDate: thisWidget.minDate,
       maxDate: thisWidget.maxDate,
@@ -29,11 +31,11 @@ class DatePicker extends BaseWidget {
       // eslint-disable-next-line quotes
       "disable": [
         function(date) {
-          return (date.getDay() === 0 );
+          return (date.getDay() === 1 );
         }
         
       ],
-      onChange: function(dateStr) {
+      onChange: function(selectedDates, dateStr) {
         thisWidget.value = dateStr;
       },
     });
