@@ -148,9 +148,7 @@ class Booking {
   sendBooking() {
     const thisBooking = this;
     const tableId = parseInt(thisBooking.dom.wrapper.querySelector('.choice').getAttribute(settings.booking.tableIdAttribute));
-    console.log('tableId', tableId);
     const url = settings.db.url + '/' + settings.db.booking;
-    console.log('url', url);
     const payload = {
       date: thisBooking.date,
       hour: utils.numberToHour(thisBooking.hour),
@@ -176,8 +174,6 @@ class Booking {
       },
       body: JSON.stringify(payload),
     };
-    //}
-    console.log('payload', payload);
     return fetch(url, options) 
       .then(function(response) {
         return response.json();
