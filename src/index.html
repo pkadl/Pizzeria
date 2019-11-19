@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Pizzeria</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="vendor/range-slider.min.css">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -21,8 +24,9 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
-          <a href="#order">Order</a>
-          <a href="#booking">Booking</a>
+          <a href="#home" class="menu-links">Home</a>
+          <a href="#order" class="menu-links">Order</a>
+          <a href="#booking" class="menu-links">Booking</a>
         </div>
         <div id="cart" class="cart">
           <div class="cart__summary">
@@ -62,6 +66,106 @@
   </header>
 
   <div id="pages">
+    <section id="home">
+              <div class="home-wrapper container">
+                <div class="linkbuttons">
+                  <a href="#order" class="back-img-1 menu-links">
+                    <div class="centering">
+                      <span class="link-titles">ORDER ONLINE</span>
+                      <span class="extra-link-text-1">Delicious food delivered at your door</span>
+                    </div>
+                  </a>
+                  <a href="#booking" class="back-img-2 menu-links">
+                  <div class="centering">
+                    <span class="link-titles">BOOK A TABLE</span>
+                    <span class="extra-link-text-2">Delicious food delivered at your door</span>
+                  </div>
+                </a>
+                </div>
+                <div class="back-3">
+                  <div class="centering">
+                    <h2 class="link-titles">OPENING HOURS:</h2>
+                    <h3 class="hours-open">TUE-SUN, 12PM-12AM</h3>
+                  </div>
+              </div>
+              <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+                  <ul class="carousel-indicators">
+                    <li data-target="#carousel" data-slide-to="0" class="active"><i class="far fa-circle"></i></li>
+                    <li data-target="#carousel" data-slide-to="1"><i class="far fa-circle"></i></li>
+                    <li data-target="#carousel" data-slide-to="2"><i class="far fa-circle"></i></li>
+                  </ul>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <div style="flex-wrap: nowrap; display: inline-block;">
+                      <div style="width: 50%;">
+                        <img src="/images/home/pizza-3.jpg" style="width: 100%; float: left; border-radius: 5px;" alt="First slide">
+                      </div>
+                      <div class="recomendation">
+                        <h5 class="recomendation-text">Amazing services</h5>
+                        <br>
+                        <q>very tasty and high quality ingredients</q>
+                        <br><br>
+                        <p>- Ozzy Osborne</p>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div style="flex-wrap: nowrap; display: inline-block;">
+                      <div style="width: 50%;">
+                        <img  style="width: 100%;  float: left; border-radius: 5px;" src="/images/home/pizza-4.jpg" alt="Second slide">
+                        </div>
+                      <div class="recomendation">
+                          <h5 class="recomendation-text">Amazing services</h5>
+                          <br>
+                          <q>very tasty and high quality ingredients</q>
+                          <br><br>
+                          <p>- Ozzy Osborne</p>
+                        </div>
+                  </div>
+                </div>
+                    <div class="carousel-item">
+                        <div style="flex-wrap: nowrap; display: inline-block;">
+                            <div style="width: 50%;">
+                      <img src="/images/home/pizza-5.jpg"  style="width: 100%; float: left; border-radius: 5px;" alt="Third slide">
+                    </div>
+                      <div class="recomendation">
+                          <h5 class="recomendation-text">Amazing services</h5>
+                          <br>
+                          <q>very tasty and high quality ingredients</q>
+                          <br><br>
+                          <p>- Ozzy Osborne</p>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </div> 
+            <div class="gallery">
+                <div class="gallery-row">
+                  <div class="gallery-element photo-1">
+                    <i class="fas fa-angry gallery-icon"></i>
+                  </div>
+                  <div class="gallery-element gallery-margin photo-2"> 
+                    <i class="fas fa-american-sign-language-interpreting gallery-icon"></i>
+                  </div>
+                  <div class="gallery-element photo-3">
+                    <i class="fas fa-american-sign-language-interpreting gallery-icon"></i>
+                  </div>
+                </div>
+                <div class="gallery-row">
+                  <div class="gallery-element photo-4">
+                    <i class="fas fa-angry gallery-icon"></i>
+                  </div>
+                  <div class="gallery-element gallery-margin photo-5">
+                    <i class="fas fa-american-sign-language-interpreting gallery-icon"></i>
+                  </div>
+                  <div class="gallery-element photo-6">
+                    <i class="fas fa-angry gallery-icon"></i>
+                  </div>
+                </div>
+                <a class="extra-link" href=#>View more on Instagram</a>
+              </div> 
+      
+    </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
     </section>
@@ -69,7 +173,6 @@
       <div class="booking-wrapper container"></div>
     </section>
   </div>
-
   <script id="template-booking-widget" type="text/x-handlebars-template">
     <div class="booking-widget">
       <h2 class="page__title no-spacing">Book a table</h2>

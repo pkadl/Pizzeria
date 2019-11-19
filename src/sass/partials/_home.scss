@@ -1,0 +1,237 @@
+.home-wrapper {
+  margin: ($base-size * 3.5) auto;
+  padding: ($base-size * 6) ($base-size * 4);
+  background: $color-light;
+  border-bottom: 1px solid lighten($color-dark, 70%);
+  border-radius: $radius;
+
+  .extra-link {
+    color: red;
+    font-size: 15px;
+    text-decoration: underline;
+  }
+}
+
+.link-titles {
+  color: #ffffff;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  font-stretch: condensed;
+  // transition: all 1s linear;
+}
+
+.hours-open {
+  font-size: 15px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.linkbuttons {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  //transition: all 1s ease;
+
+  a {
+    text-align: center;
+  }
+}
+
+.centering {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  //transition: all 2s linear;
+}
+
+.back-img-1 {
+  background-image: url("/images/pizza1.jpg");
+}
+
+.back-img-1, .back-img-2 {
+  background-position: 0%;
+  border-radius: $radius;
+  margin-right: 5px;
+  height: 120px;
+  min-width: 49.6%;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  //transition: all 2s linear;
+}
+
+.back-img-2 {
+  background-image: url('/images/home/pizza-2.jpg');
+}
+
+.back-img-1:hover *, .back-img-2:hover * {
+  display: block;
+  opacity: 1;
+  transition: $transition;
+  color: #ffffff;
+  line-height: 40px;
+}
+
+.extra-link-text-1, .extra-link-text-2 {
+  font-size: 13px;
+  text-decoration: none;
+  color: black;
+  white-space: nowrap;
+  opacity: 0;
+  display: none;
+  transition: $transition;
+  bottom: -20px;
+  line-height: 3px;
+}
+
+.back-3 {
+  background-color: $color-main;
+  width: 100%;
+  clear: both;
+  border-radius: $radius;
+  margin-top: 5px;
+  height: 120px;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.carousel-indicators{
+  list-style: none;
+  bottom: -15px;
+  margin-bottom: -20px;
+  width: 100%;
+  left: -80px;
+}
+
+.carousel-indicators li {
+  width: 13px;
+  height: 13px;
+  background-color: gray;
+  position: relative;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+.carousel-indicators li.active {
+  background-color: black;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+}
+
+.recomendation-text {
+  font-variant: small-caps;
+  font-weight: bold;
+}
+
+.recomendation {
+  width: 50%;
+  height: 100%;
+  float: left;
+  padding-left: 30px;
+}
+
+.home-option-title {
+  @extend .h2;
+  display: block;
+  margin: 0 0 ($base-size * 2) 0;
+
+  > .widget-amount {
+    margin: ($base-size * 2) 0 0 0;
+  }
+}
+
+.page__title {
+  @extend .h1;
+  margin: 0 0 ($base-size * 4) 0;
+  text-align: center;
+}
+
+.home-options {
+  @include flex(row, flex-start, space-between);
+  margin: ($base-size * 4) auto;
+}
+
+.gallery {
+  width: 100%;
+  margin-top: 90px;
+}
+
+.gallery-row {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  div {
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+.gallery-element {
+  width: 32.5%;
+  height: 193px;
+  border-radius: $radius;
+}
+
+.gallery-element:hover {
+  transition: all 1s linear;
+  filter: brightness(50%);
+}
+
+.gallery-margin{
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.gallery-icon {
+  display: none;
+  font-size: 48px;
+  color: #ffffff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.gallery-icon:hover {
+  color: $color-main;
+  cursor: pointer;
+}
+
+.gallery-element:hover .gallery-icon {
+  display: block;
+}
+
+.photo-1 {
+  background: url('/images/home/pizza-4.jpg');
+}
+
+.photo-2 {
+  background: url('/images/home/pizza-5.jpg');
+}
+
+.photo-3 {
+  background: url('/images/home/pizza-6.jpg');
+}
+
+.photo-4 {
+  background: url('/images/home/pizza-3.jpg');
+}
+
+.photo-5 {
+  background: url('/images/home/pizza-2.jpg');
+}
+
+.photo-6 {
+  background: url('/images/home/pizza-7.jpg');
+}
+
+.photo-7 {
+  background: url('/images/home/pizza-8.jpg');
+}

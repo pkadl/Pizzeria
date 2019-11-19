@@ -7,12 +7,14 @@ export const select = {
     menuProduct: '#template-menu-product',
     cartProduct: '#template-cart-product',
     bookingWidget: '#template-booking-widget',
+    homeSite:  '#template-home-site',
   },
   containerOf: {
     menu: '#product-list',
     cart: '#cart',
     pages: '#pages',
     booking: '.booking-wrapper',
+    home: '#home',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -70,7 +72,7 @@ export const select = {
 
   },
   nav: {
-    links: '.main-nav a',
+    links: '.menu-links',
   },
 };
 
