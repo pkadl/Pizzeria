@@ -25,7 +25,7 @@
 }
 
 .booking-option-title {
-  @extend %h2;
+  @extend .h2;
   display: block;
   margin: 0 0 ($base-size * 2) 0;
 
@@ -36,7 +36,7 @@
 }
 
 .page__title {
-  @extend %h1;
+  @extend .h1;
   margin: 0 0 ($base-size * 4) 0;
   text-align: center;
 }
@@ -113,7 +113,7 @@
   }
 
   .object {
-    @extend %h3;
+    @extend .h3;
     background: #f7f1e3;
     box-shadow: 0 0 12px rgba(0,0,0,0.2);
   }
@@ -140,7 +140,7 @@
   }
 
   .table {
-    @extend %h2;
+    @extend .h2;
     width: 70px;
     height: 70px;
     line-height: 70px;
@@ -158,7 +158,7 @@
     }
 
     &.booked {
-      cursor: pointer;
+      cursor: not-allowed;
       color: lighten($color-dark, 40%);
 
       &::after {
@@ -171,10 +171,26 @@
         background: $color-dark;
         opacity: 0.4;
       }
-
     }
-    
-    &.blocked {
+
+    &.choice {
+      cursor: pointer;
+      color: lighten($color-dark, 40%);
+  
+      &::after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: $color-dark;
+        opacity: 0.4;
+      }
+    }
+
+    &.second {
+      color: lighten($color-dark, 20%);
       cursor: not-allowed;
     }
   }

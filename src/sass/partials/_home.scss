@@ -167,6 +167,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 10px;
+
   div {
     background-position: 50%;
     background-size: cover;
@@ -199,6 +200,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
 .gallery-icon:hover {
   color: $color-main;
   cursor: pointer;

@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+
 class BaseWidget {
   constructor(wrapperElement, initialValue) {
     const thisWidget = this;
@@ -8,20 +9,32 @@ class BaseWidget {
   }
   get value() {
     const thisWidget = this;
-
     return thisWidget.correctValue;
   }
 
   set value (value) {
     const thisWidget = this;
-    const newValue = thisWidget.parseValue(value);
 
-    if (newValue != thisWidget.correctValue && thisWidget.isValid(newValue)) {
-      thisWidget.correctValue = newValue;
-      thisWidget.announce();
-    }
+    if(thisWidget.dom.input.name == 'hours') {
+      let upLimitDOM = document.getElementsByName('hours'); 
+      let upLimit = parseFloat(upLimitDOM[0].getAttribute('max'));
+      
+      if(value <= upLimit && value >= 0.5) {
+        thisWidget.correctValue = value;
+      } else {
+        thisWidget.correctValue = upLimit;
+      }
+      thisWidget.renderValue();
+    } else {
+      const newValue = thisWidget.parseValue(value);
+
+      if (newValue != thisWidget.correctValue && thisWidget.isValid(newValue)) {
+        thisWidget.correctValue = newValue;
+        thisWidget.announce();
+      }}
     thisWidget.renderValue();
   }
+
   setValue(value) {
     const thisWidget = this;
     thisWidget.value = value;

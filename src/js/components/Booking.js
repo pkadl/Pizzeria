@@ -80,7 +80,6 @@ class Booking {
       if(item.repeat == 'daily') {
         for(let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1)) {
           thisBooking.makeBooked(utils.dateToStr(loopDate), item.hour, item.duration, item.table);
-     
         }
       }
     }
@@ -93,18 +92,21 @@ class Booking {
     }
     const startHour = utils.hourToNumber(hour);
     
+    
     for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5) {
+      
       if(typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
       }
       thisBooking.booked[date][hourBlock].push(table);
     }
-    
   }
+
   updateDOM() {
     const thisBooking = this;
-
+    
     thisBooking.date = thisBooking.datePicker.value;
+    
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
     
     let allAvailable = false;
@@ -115,11 +117,9 @@ class Booking {
     ){
       allAvailable = true;
     }
-
     
     for(let table of thisBooking.dom.tables) {
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
-
       if(!isNaN(tableId)) {
         tableId = parseInt(tableId);
       }
@@ -134,20 +134,11 @@ class Booking {
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
-    for(let table of thisBooking.dom.tables) {
-      if(table.classList.contains('booked') == true) {
-        table.classList.add('blocked');
-      }
-      else {
-        table.classList.remove('blocked');
-        table.classList.remove('choice');
-      }
-    }
-
   }
+
   sendBooking() {
     const thisBooking = this;
-    const tableId = parseInt(thisBooking.dom.wrapper.querySelector('.choice').getAttribute(settings.booking.tableIdAttribute));
+    const tableId = parseInt(thisBooking.dom.wrapper.querySelector(classNames.booking.tableSelected).getAttribute(settings.booking.tableIdAttribute));
     const url = settings.db.url + '/' + settings.db.booking;
     const payload = {
       date: thisBooking.date,
@@ -210,23 +201,91 @@ class Booking {
     });
 
     for(let table of thisBooking.dom.tables) {
+      
       table.addEventListener('click', function() {
-        if(!table.classList.contains('blocked')) {
-          table.classList.toggle('booked');
-          table.classList.toggle('choice');
-        } else {
-          alert('Ten stolik jest już zarezerwowany');
-        }
+
+        if (table.classList.contains(classNames.booking.tableBlocker)) {
+          alert('Możesz wybrać tylko jeden stolik');
+        } 
+        else {
+          if (!table.classList.contains(classNames.booking.tableBooked)) {
+            table.classList.toggle(classNames.booking.tableSelected);
+
+            for (let table of thisBooking.dom.tables) {
+              if (!table.classList.contains(classNames.booking.tableBooked) && !table.classList.contains(classNames.booking.tableSelected) && !table.classList.contains(classNames.booking.tableBlocker)) {
+                table.classList.add(classNames.booking.tableBlocker);
+              }
+              else {
+                table.classList.remove(classNames.booking.tableBlocker);
+              }
+            }
+            table.classList.remove(classNames.booking.tableBlocker);
+
+            if (table.classList.contains(classNames.booking.tableSelected) == true) {
+              if (thisBooking.hour >= 23) {
+                alert('Rezerwacje tylko do godz. 23:00, sprawdź wcześniej!');
+                table.classList.remove(classNames.booking.tableSelected);
+                table.classList.remove(classNames.booking.tableBlocker);
+              } 
+              else {
+                for (let hour = thisBooking.hour; hour < 23.5; hour+=0.5) {
+                  let tableId = parseInt(table.getAttribute(settings.booking.tableIdAttribute));
+                  
+                  if (typeof thisBooking.booked[thisBooking.date][hour] == 'undefined') {
+                    thisBooking.booked[thisBooking.date][hour] = [0];
+                    let hoursPossibleToReservation = hour - thisBooking.hour;
+                    if (hoursPossibleToReservation > 9) {
+                      hoursPossibleToReservation = 9;
+                    }
+                    
+                    thisBooking.hoursAmount.dom.wrapper.children[1].setAttribute(
+                      'value', hoursPossibleToReservation);
+                    thisBooking.hoursAmount.dom.wrapper.children[1].setAttribute(
+                      'max', hoursPossibleToReservation
+                    );
+                  }
+                  else if (thisBooking.booked[thisBooking.date][hour].includes(tableId) == true) {  
+                    let hoursPossibleToReservation = hour - thisBooking.hour;
+
+                    if (hoursPossibleToReservation > 9) {
+                      hoursPossibleToReservation = 9;
+                    }
+                    thisBooking.hoursAmount.dom.wrapper.children[1].setAttribute(
+                      'value', hoursPossibleToReservation);
+                    thisBooking.hoursAmount.dom.wrapper.children[1].setAttribute(
+                      'max', hoursPossibleToReservation
+                    );
+                    break;
+                  } 
+                  else {
+                    
+                    let hoursPossibleToReservation = hour - thisBooking.hour;
+                    if (hoursPossibleToReservation > 9) {
+                      hoursPossibleToReservation = 9;
+                    }
+                    
+                    thisBooking.hoursAmount.dom.wrapper.children[1].setAttribute(
+                      'value', hoursPossibleToReservation);
+                    thisBooking.hoursAmount.dom.wrapper.children[1].setAttribute(
+                      'max', hoursPossibleToReservation
+                    );
+                  }
+                }
+              }
+            } 
+          }
+          else {
+            alert('Ten stolik jest już zarezerwowany');
+          }}
       });
     }
     
-
     thisBooking.dom.wrapper.addEventListener('submit', function() {
       event.preventDefault();
-      const tableChoiceChecker = thisBooking.dom.wrapper.querySelector('.choice');
-    
+      const tableChoiceChecker = thisBooking.dom.wrapper.querySelector(classNames.booking.tableSelected);
+      
       if(tableChoiceChecker == null) {
-        alert('wybierz stolik');
+        alert('wybierz stolik i dopasuj długość rezerwacji');
       }
       else if (thisBooking.dom.address.value == '') {
         alert('uzupełnij adres');
