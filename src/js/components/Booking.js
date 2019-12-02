@@ -138,7 +138,8 @@ class Booking {
 
   sendBooking() {
     const thisBooking = this;
-    const tableId = parseInt(thisBooking.dom.wrapper.querySelector(classNames.booking.tableSelected).getAttribute(settings.booking.tableIdAttribute));
+    const tableElem = thisBooking.dom.wrapper.querySelectorAll('.choice');
+    const tableId = parseInt(tableElem[0].getAttribute(settings.booking.tableIdAttribute));
     const url = settings.db.url + '/' + settings.db.booking;
     const payload = {
       date: thisBooking.date,
@@ -282,24 +283,26 @@ class Booking {
     
     thisBooking.dom.wrapper.addEventListener('submit', function() {
       event.preventDefault();
-      const tableChoiceChecker = thisBooking.dom.wrapper.querySelector(classNames.booking.tableSelected);
-      
-      if(tableChoiceChecker == null) {
-        alert('wybierz stolik i dopasuj długość rezerwacji');
-      }
-      else if (thisBooking.dom.address.value == '') {
-        alert('uzupełnij adres');
-      }
-      else if (thisBooking.dom.phone.value == '') {
-        alert('uzupełnij telefon');
+      const tableChecker = thisBooking.dom.wrapper.querySelectorAll('.choice');
+      console.log(tableChecker);
+      if (tableChecker.length != 0) {
+        if (thisBooking.dom.address.value == '') {
+          alert('uzupełnij adres');
+        }
+        else if (thisBooking.dom.phone.value == '') {
+          alert('uzupełnij telefon');
+        }
+        else {
+          thisBooking.sendBooking()
+            .then(function() {
+              thisBooking.getData();    
+            }); 
+        }
+        thisBooking.updateDOM();
       }
       else {
-        thisBooking.sendBooking()
-          .then(function() {
-            thisBooking.getData();
-          }); 
-      } 
-    }); 
+        alert('Proszę najpierw wybrać stolik');
+      }}); 
   }
 }
 export default Booking;
